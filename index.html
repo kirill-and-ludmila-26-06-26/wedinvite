@@ -533,7 +533,7 @@
                     <div class="schedule-desc">
                         <h4>Торжественная роспись</h4>
                         <p> ЗАГС по адресу ул. Свердлова, д.5, г. Ярославль</p>
-                        <!-- Комментарий к адресу (заглушка 0000) -->
+                        <!-- Комментарий к адресу -->
                         <p class="address-note"> После церемонии пройдет фотосессия у ЗАГСа, после которой Вы сможете насладиться свободным временем до банкета. Если нет возможности или Вы не хотите присутствовать на церемонии, то будем рады видеть Вас сразу в ресторане</p>
                         <a href="https://yandex.ru/maps/?pt=39.883806,57.628814&z=17&l=map" class="map-link" target="_blank">Открыть карту →</a>
                     </div>
@@ -543,7 +543,7 @@
                     <div class="schedule-desc">
                         <h4>Банкет</h4>
                         <p>Банкетный зал «Лофт» ресторана «АлхимIQ», проспект Ленина, 10/1, г.Ярославль </p>
-                        <!-- Комментарий к адресу (заглушка 0000) -->
+                        <!-- Комментарий к адресу -->
                         <p class="address-note"> 15:00 - 15:40 фуршет (знакомство гостей без молодожёнов). 15:40 - 22:00 основная банкетная часть мероприятия.</p>
                         <a href="https://yandex.ru/maps/?pt=39.876710,57.642030&z=17&l=map" class="map-link" target="_blank">Открыть карту →</a>
                     </div>
@@ -564,13 +564,13 @@
             </div>
             <div class="color-palette">
                 <div class="color-circle" style="background: #ffe5ec;"></div>
-                <div class="color-circle" style="background: #d4b5a0;"></div>
+                <div class="color-circle" style="background: #ecd9c6;"></div>
+                <div class="color-circle" style="background: #6d4c41;"></div>
                 <div class="color-circle" style="background: #8f6b5c;"></div>
                 <div class="color-circle" style="background: #6d4c41;"></div>
-                <div class="color-circle" style="background: #ecd9c6;"></div>
             </div>
 
-            <!-- ФОРМА (без вопросов о подарке и трансфере) -->
+            <!-- ФОРМА (без вопросов о подарке, трансфере и ребёнке) -->
             <div class="rsvp-form">
                 <form id="weddingForm">
                     <div class="form-group">
@@ -615,14 +615,6 @@
                             <label><input type="checkbox" name="alcohol" value="Виски/коньяк"> Виски/коньяк</label>
                             <label><input type="checkbox" name="alcohol" value="Водка"> Водка</label>
                             <label><input type="checkbox" name="alcohol" value="Не буду пить алкоголь"> Не буду пить алкоголь</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Будет ли с вами на празднике ребенок?</label>
-                        <div class="radio-group">
-                            <label><input type="radio" name="child" value="Да"> Да</label>
-                            <label><input type="radio" name="child" value="Нет"> Нет</label>
                         </div>
                     </div>
 
@@ -692,7 +684,7 @@
             });
         });
 
-        // Отправка формы (без полей gift и transfer)
+        // Отправка формы (без полей gift, transfer и child)
         document.getElementById('weddingForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -711,7 +703,6 @@
             const food = document.querySelector('input[name="food"]:checked')?.value || 'не указано';
             const alcoholCheckboxes = document.querySelectorAll('input[name="alcohol"]:checked');
             const alcohol = Array.from(alcoholCheckboxes).map(cb => cb.value).join(', ') || 'не указано';
-            const child = document.querySelector('input[name="child"]:checked')?.value || 'не указано';
             const message = document.getElementById('message').value.trim() || '—';
 
             if (!name || !attendance) {
@@ -728,7 +719,6 @@
 📞 Контакт: ${contact}
 🍽 Питание: ${food}
 🥂 Алкоголь: ${alcohol}
-👶 Ребёнок: ${child}
 💬 Сообщение: ${message}
             `.trim();
 
@@ -756,5 +746,3 @@
     </script>
 </body>
 </html>
-
-

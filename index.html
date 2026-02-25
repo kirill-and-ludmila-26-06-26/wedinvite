@@ -349,10 +349,6 @@
             flex-shrink: 0;
         }
 
-        .guest-count {
-            display: none;
-        }
-
         .submit-btn {
             background: #b28b7a;
             color: white;
@@ -570,7 +566,7 @@
                 <div class="color-circle" style="background: #6d4c41;"></div>
             </div>
 
-            <!-- ФОРМА (без вопросов о подарке, трансфере и ребёнке) -->
+            <!-- ФОРМА (без вопросов о подарке, трансфере, ребёнке и количестве гостей) -->
             <div class="rsvp-form">
                 <form id="weddingForm">
                     <div class="form-group">
@@ -584,11 +580,6 @@
                             <label><input type="radio" name="attendance" value="Да, с радостью" required> Да, с радостью</label>
                             <label><input type="radio" name="attendance" value="Нет, к сожалению"> Нет, к сожалению</label>
                         </div>
-                    </div>
-
-                    <div class="form-group guest-count" id="guestCountGroup">
-                        <label for="guests">Количество гостей (включая вас) *</label>
-                        <input type="number" id="guests" name="guests" min="1" value="1">
                     </div>
 
                     <div class="form-group">
@@ -674,17 +665,7 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Показать/скрыть количество гостей
-        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
-        const guestCountGroup = document.getElementById('guestCountGroup');
-
-        attendanceRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                guestCountGroup.style.display = this.value === 'Да, с радостью' ? 'block' : 'none';
-            });
-        });
-
-        // Отправка формы (без полей gift, transfer и child)
+        // Отправка формы (без полей gift, transfer, child и guests)
         document.getElementById('weddingForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -693,12 +674,6 @@
 
             const name = document.getElementById('name').value.trim();
             const attendance = document.querySelector('input[name="attendance"]:checked')?.value;
-            let guests = '';
-            if (attendance === 'Да, с радостью') {
-                guests = document.getElementById('guests').value;
-            } else {
-                guests = '0';
-            }
             const contact = document.getElementById('contact').value.trim() || 'не указан';
             const food = document.querySelector('input[name="food"]:checked')?.value || 'не указано';
             const alcoholCheckboxes = document.querySelectorAll('input[name="alcohol"]:checked');
@@ -715,7 +690,6 @@
 
 👤 Имя: ${name}
 ✅ Присутствие: ${attendance}
-👥 Количество гостей: ${guests}
 📞 Контакт: ${contact}
 🍽 Питание: ${food}
 🥂 Алкоголь: ${alcohol}
@@ -734,7 +708,6 @@
                 if (data.ok) {
                     document.getElementById('successMessage').style.display = 'block';
                     this.reset();
-                    guestCountGroup.style.display = 'none';
                 } else {
                     throw new Error(data.description);
                 }
@@ -746,6 +719,3 @@
     </script>
 </body>
 </html>
-
-
-
